@@ -3,25 +3,26 @@ import random
 class Konto():
     def __init__(self, name) -> None:
         self.name = name
+        self.kontostand = 0
+        #IBAN
+        self.country_code = 'DE'
         self.bankleitzahl = '52250000'
         self.kontonummer = str(random.randint(1000000000, 9999999999))
+        self.prüfziffer = str(self.get_prüfziffer())
+        self.iban = self.country_code + self.prüfziffer + self.bankleitzahl + self.kontonummer
+        #Online-Zahlung
         self.cvv = random.randint(100, 999)
         self.ablaufdatum = '01/28'
-        self.kontostand = 0
 
+    def get_prüfziffer(self) -> int:
         step1 = self.bankleitzahl + self.kontonummer + '1314' + '00'
         step2 = int(step1) % 97
         step3 = 98 - int(step2)
 
-        self.iban = 'DE' + str(step3) + self.bankleitzahl + self.kontonummer
-    
-        #(1) = Bankleitzahl + Kontonummer + 1314 + 00
-        #(2) = Von (1) % 97
-        #(3) = 98 - (2)
-        #(4) = DE + (3) + Bankleitzahl + Kontonummer
+        return step3
 
     def __str__(self) -> str:
-        return f'Name: {self.name} | IBAN: {self.iban} | Kontonummer: {self.kontonummer} | CVV: {self.cvv} | Ablaufdatum: {self.ablaufdatum} | Kontostand: {self.kontostand}€'
+        return f'Name: {self.name} | Kontostand: {self.kontostand}€ | IBAN: {self.iban} | CVV: {self.cvv} | Ablaufdatum: {self.ablaufdatum}'
 
 
     def einzahlen(self, anzahl: int):
