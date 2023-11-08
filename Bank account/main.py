@@ -47,7 +47,7 @@ class Konto():
             print('Benutze bitte einen Zahlenwert!')
 
     
-    def  umbuchen(self, zielkonto: str, anzahl: int) -> None:
+    def  umbuchen(self, zielkonto, anzahl: int) -> None:
         try:
             self.abheben(anzahl)
 
