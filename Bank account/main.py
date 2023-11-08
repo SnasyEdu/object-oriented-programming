@@ -35,13 +35,17 @@ class Konto():
 
     def abheben(self, anzahl: int) -> None:
         try:
-            ergebnis = self.kontostand - int(anzahl)
+            if anzahl > 0:
+                ergebnis = self.kontostand - int(anzahl)
 
-            if ergebnis >= 0:
-                self.kontostand -= int(anzahl)
-                print(f'Du hast {anzahl}€ abgehoben')
+                if ergebnis >= 0:
+                    self.kontostand -= int(anzahl)
+                    print(f'Du hast {anzahl}€ abgehoben')
+                else:
+                    print('Du hast zu wenig Geld auf dem Konto, um es abzuheben')
+            
             else:
-                print('Du hast zu wenig Geld auf dem Konto, um es abzuheben')
+                print('Du kannst keine negativen Beträge abheben')
             
         except:
             print('Benutze bitte einen Zahlenwert!')
