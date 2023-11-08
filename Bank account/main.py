@@ -6,6 +6,7 @@ class Konto():
         self.kontostand = 0
         #IBAN
         self.country_code = 'DE'
+        self.country_code_in_int = '1314'
         self.bankleitzahl = '52250000'
         self.kontonummer = str(random.randint(1000000000, 9999999999))
         self.prüfziffer = str(self.get_prüfziffer())
@@ -15,7 +16,7 @@ class Konto():
         self.ablaufdatum = '01/28'
 
     def get_prüfziffer(self) -> int:
-        step1 = self.bankleitzahl + self.kontonummer + '1314' + '00'
+        step1 = self.bankleitzahl + self.kontonummer + self.country_code_in_int + '00'
         step2 = int(step1) % 97
         step3 = 98 - int(step2)
 
