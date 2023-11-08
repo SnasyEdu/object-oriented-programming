@@ -45,7 +45,22 @@ class Konto():
             
         except:
             print('Benutze bitte einen Zahlenwert!')
-        
 
-konto = Konto('Hans Günther')
-print(konto)
+    
+    def  umbuchen(self, zielkonto: str, anzahl: int) -> None:
+        try:
+            self.abheben(anzahl)
+
+            if zielkonto == '1':
+                konto1.einzahlen(anzahl)
+
+            elif zielkonto == '2':
+                konto2.einzahlen(anzahl)
+
+        except:
+            print('Benutze bitte einen Zahlenwert!')        
+
+#Konten
+
+konto1 = Konto('Hans Günther')
+konto2 = Konto('Otto Müller')
