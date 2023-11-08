@@ -61,10 +61,7 @@ class Konto():
     def  umbuchen(self, zielkonto, anzahl: int) -> None:
         try:
             if self.abheben(anzahl) == 1:
-                try:
-                    zielkonto.einzahlen(anzahl)
-                except:
-                    print('Das Zielkonto existiert nicht')
+                zielkonto.einzahlen(anzahl)
             else:
                 print('Die Umbuchung war nicht erfolgreich')
 
