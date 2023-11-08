@@ -25,14 +25,14 @@ class Konto():
         return f'Name: {self.name} | Kontostand: {self.kontostand}€ | IBAN: {self.iban} | CVV: {self.cvv} | Ablaufdatum: {self.ablaufdatum}'
 
 
-    def einzahlen(self, anzahl: int):
+    def einzahlen(self, anzahl: int) -> None:
         try:
             self.kontostand += int(anzahl)
             print(f'Dein Kontostand wurde um {anzahl}€ erhöht')
         except:
             print('Benutze bitte einen Zahlenwert!')
 
-    def abheben(self, anzahl: int):
+    def abheben(self, anzahl: int) -> None:
         try:
             ergebnis = self.kontostand - int(anzahl)
 
@@ -45,7 +45,6 @@ class Konto():
         except:
             print('Benutze bitte einen Zahlenwert!')
         
-
 
 konto = Konto('Hans Günther')
 print(konto)

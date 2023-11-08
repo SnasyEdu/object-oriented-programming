@@ -1,4 +1,4 @@
-def rechner(zahl1: int, operator: str, zahl2: int):
+def rechner(zahl1: int, operator: str, zahl2: int) -> int:
     if operator == "+":
         return zahl1 + zahl2
     elif operator == "-":
