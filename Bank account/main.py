@@ -28,8 +28,13 @@ class Konto():
 
     def einzahlen(self, anzahl: int) -> None:
         try:
-            self.kontostand += int(anzahl)
-            print(f'Dein Kontostand wurde um {anzahl}€ erhöht')
+            if anzahl > 0:
+                self.kontostand += int(anzahl)
+                print(f'Dein Kontostand wurde um {anzahl}€ erhöht')
+            elif anzahl == 0:
+                print('Du kannst nicht 0€ einzahlen')
+            else:
+                print('Du kannst keine negativen Beträge einzahlen')
         except:
             print('Benutze bitte einen Zahlenwert!')
 
@@ -41,9 +46,11 @@ class Konto():
                 if ergebnis >= 0:
                     self.kontostand -= int(anzahl)
                     print(f'Du hast {anzahl}€ abgehoben')
+                    return 1 #Erfolgreich
                 else:
                     print('Du hast zu wenig Geld auf dem Konto, um es abzuheben')
-            
+            elif anzahl == 0:
+                print('Du kannst nicht 0€ abheben')
             else:
                 print('Du kannst keine negativen Beträge abheben')
             
@@ -53,9 +60,13 @@ class Konto():
     
     def  umbuchen(self, zielkonto, anzahl: int) -> None:
         try:
-            self.abheben(anzahl)
-
-            zielkonto.einzahlen(anzahl)
+            if self.abheben(anzahl) == 1:
+                try:
+                    zielkonto.einzahlen(anzahl)
+                except:
+                    print('Das Zielkonto existiert nicht')
+            else:
+                print('Die Umbuchung war nicht erfolgreich')
 
         except:
             print('Benutze bitte einen Zahlenwert!')        
