@@ -51,11 +51,7 @@ class Konto():
         try:
             self.abheben(anzahl)
 
-            if zielkonto == '1':
-                konto1.einzahlen(anzahl)
-
-            elif zielkonto == '2':
-                konto2.einzahlen(anzahl)
+            zielkonto.einzahlen(anzahl)
 
         except:
             print('Benutze bitte einen Zahlenwert!')        
