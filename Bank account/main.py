@@ -1,4 +1,9 @@
 import random
+import logging
+
+logging.basicConfig(level=logging.INFO, filename='account.log', filemode='w',
+                    format='%(asctime)s - %(levelname)s - %(message)s', datefmt='%d/%m/%Y %H:%M:%S')
+
 
 class Konto():
     def __init__(self, name) -> None:
@@ -30,13 +35,13 @@ class Konto():
         try:
             if anzahl > 0:
                 self.kontostand += int(anzahl)
-                print(f'Dein Kontostand wurde um {anzahl}€ erhöht')
+                logging.info(f'{self.name} hat {anzahl}€ eingezahlt')
             elif anzahl == 0:
-                print('Du kannst nicht 0€ einzahlen')
+                logging.error(f'{self.name} hat versucht 0€ einzuzahlen')
             else:
-                print('Du kannst keine negativen Beträge einzahlen')
+                logging.error(f'{self.name} hat versucht eine negative Anzahl einzuzahlen')
         except:
-            print('Benutze bitte einen Zahlenwert!')
+            logging.debug('Benutze bitte einen Zahlenwert!')
 
     def abheben(self, anzahl: int) -> None:
         try:
@@ -45,17 +50,16 @@ class Konto():
 
                 if ergebnis >= 0:
                     self.kontostand -= int(anzahl)
-                    print(f'Du hast {anzahl}€ abgehoben')
-                    return 1 #Erfolgreich
+                    logging.info(f'{self.name} hat {anzahl}€ abgehoben')
                 else:
-                    print('Du hast zu wenig Geld auf dem Konto, um es abzuheben')
+                    logging.error(f'{self.name} hat versucht {anzahl}€ abzuheben, obwohl er nur {self.kontostand}€ auf dem Konto hat')
             elif anzahl == 0:
-                print('Du kannst nicht 0€ abheben')
+                logging.error(f'{self.name} hat versucht 0€ abzuheben')
             else:
-                print('Du kannst keine negativen Beträge abheben')
+                logging.error(f'{self.name} hat versucht eine negative Anzahl abzuheben')
             
         except:
-            print('Benutze bitte einen Zahlenwert!')
+            logging.debug('Benutze bitte einen Zahlenwert!')
 
     
     def  umbuchen(self, zielkonto, anzahl: int) -> None:
@@ -63,10 +67,10 @@ class Konto():
             if self.abheben(anzahl) == 1:
                 zielkonto.einzahlen(anzahl)
             else:
-                print('Die Umbuchung war nicht erfolgreich')
+                logging.error(f'{self.name} hat versucht {anzahl}€ auf das Konto von {zielkonto.name} zu überweisen, obwohl er nur {self.kontostand}€ auf dem Konto hat')
 
         except:
-            print('Benutze bitte einen Zahlenwert!')        
+            logging.debug('Benutze bitte einen Zahlenwert!')   
 
 #Konten
 
