@@ -62,12 +62,21 @@ class Konto():
             logging.debug('Benutze bitte einen Zahlenwert!')
 
     
-    def  umbuchen(self, zielkonto, anzahl: int) -> None:
+    def  überweisen(self, zielkonto, anzahl: int) -> None:
         try:
-            if self.abheben(anzahl) == 1:
-                zielkonto.einzahlen(anzahl)
+            if anzahl > 0:
+                ergebnis = self.kontostand - int(anzahl)
+
+                if ergebnis >= 0:
+                    self.kontostand -= int(anzahl)
+                    zielkonto.kontostand += int(anzahl)
+                    logging.info(f'{self.name} hat {anzahl}€ auf das Konto von {zielkonto.name} überwiesen')
+                else:
+                    logging.error(f'{self.name} hat versucht {anzahl}€ auf das Konto von {zielkonto.name} zu überweisen, obwohl er nur {self.kontostand}€ auf dem Konto hat')
+            elif anzahl == 0:
+                logging.error(f'{self.name} hat versucht 0€ auf das Konto von {zielkonto.name} zu überweisen')
             else:
-                logging.error(f'{self.name} hat versucht {anzahl}€ auf das Konto von {zielkonto.name} zu überweisen, obwohl er nur {self.kontostand}€ auf dem Konto hat')
+                logging.error(f'{self.name} hat versucht eine negative Anzahl auf das Konto von {zielkonto.name} zu überweisen')
 
         except:
             logging.debug('Benutze bitte einen Zahlenwert!')   
